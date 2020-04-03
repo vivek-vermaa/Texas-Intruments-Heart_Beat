@@ -1,4 +1,5 @@
-
+// 0.Documentation Section 
+// Lab7_HeartBlock, main.c
 
 // Runs on LM4F120 or TM4C123 LaunchPad
 // Input from PF4(SW1) is AS (atrial sensor), 
@@ -36,7 +37,7 @@
 #define SYSCTL_RCGC2_R          (*((volatile unsigned long *)0x400FE108))
 // 2. Declarations Section
 //   Global Variables
-unsigned int SW1=0u;
+unsigned int SW1,status;
 //   Function Prototypes
 void PortF_Init(void);
 void Delay1ms(unsigned long msec);
@@ -47,17 +48,16 @@ void SetVT(void);
 void ClearVT(void);
 void SetReady(void);
 void ClearReady(void);
-void Delay100ms(unsigned long time);
+
 // 3. Subroutines Section
 // MAIN: Mandatory for a C Program to be executable
-int main(void)
-{
+int main(void){
   TExaS_Init(SW_PIN_PF40, LED_PIN_PF31,ScopeOn);  // activate grader and set system clock to 80 MHz
   PortF_Init();                            // Init port PF4 PF3 PF1    
   EnableInterrupts();                      // enable interrupts for the grader  
   while(1)
 	{   
-      GPIO_PORTF_DATA_R |= 0x08;        //Intially High
+      //GPIO_PORTF_DATA_R |= 0x08;        //Intially High
 			SW1 = GPIO_PORTF_DATA_R & 0x10;  //read SW1 Pin
       if(SW1 == 0) 	//Switch pressed
 			{
@@ -69,17 +69,14 @@ int main(void)
 				WaitForASHigh();		//Switch released
       }															
 	}
+  
 }
 // Subroutine to initialize port F pins for input and output
 // PF4 is input SW1 and PF3-1 is output LEDs
 // Inputs: None
 // Outputs: None
 // Notes: ...
-
-
-void PortF_Init(void)
-{ 
-	volatile unsigned long delay;
+void PortF_Init(void){ volatile unsigned long delay;
   SYSCTL_RCGC2_R |= 0x00000020;      // 1) F clock
   delay = SYSCTL_RCGC2_R;            // delay to allow clock to stabilize     
   GPIO_PORTF_AMSEL_R &= 0x00;        // 2) disable analog function
@@ -98,13 +95,6 @@ void PortF_Init(void)
 // yellow   RG-    0x0A
 // sky blue -GB    0x0C
 // white    RGB    0x0E
-
-
-// Subroutine reads AS input and waits for signal to be low
-// If AS is already low, it returns right away
-// If AS is currently high, it will wait until it to go low
-// Inputs:  None
-// Outputs: None
 
 
 void WaitForASLow(void)
@@ -191,3 +181,4 @@ void Delay100ms(unsigned long time)
     time = time - 1; // decrements every 100 ms
   }
 }
+
