@@ -61,6 +61,7 @@ int main(void)
 			SW1 = GPIO_PORTF_DATA_R & 0x10;  //read SW1 Pin
       if(SW1 == 0) 	//Switch pressed
 			{
+			  Delay1ms(25000000);
 				WaitForASLow();												
 			}
       else
@@ -110,7 +111,7 @@ void WaitForASLow(void)
 {
 
 		ClearReady();
-		ClearVT();
+	
 }
 
 // Subroutine reads AS input and waits for signal to be high
@@ -122,9 +123,9 @@ void WaitForASLow(void)
 
 void WaitForASHigh(void)
 {
-	
 		Delay1ms(25000000);
 		SetVT();
+	  ClearVT();
 }
 // Subroutine sets VT high
 // Inputs:  None
@@ -132,10 +133,9 @@ void WaitForASHigh(void)
 // Notes:   friendly means it does not affect other bits in the port
 void SetVT(void)
 {
-	GPIO_PORTF_DATA_R |= 0x02;
-	Delay1ms(25000000);
-	GPIO_PORTF_DATA_R &= ~0x02;
 	GPIO_PORTF_DATA_R |= 0x08;
+	Delay1ms(25000000);
+	//ClearVT();
 }
 
 // Subroutine clears VT low
@@ -166,9 +166,9 @@ void SetReady(void)
 // Notes:   friendly means it does not affect other bits in the port
 void ClearReady(void)
 {
-	Delay1ms(25000000);
+	Delay1ms(1000000);
 	GPIO_PORTF_DATA_R &= ~0x08;
-	
+	GPIO_PORTF_DATA_R &= ~0x02;
 }
 
 // Subroutine to delay in units of milliseconds
