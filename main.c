@@ -38,6 +38,7 @@
 // 2. Declarations Section
 //   Global Variables
 unsigned int SW1,status;
+unsigned char delay_counter;
 //   Function Prototypes
 void PortF_Init(void);
 void Delay1ms(unsigned long msec);
@@ -48,6 +49,7 @@ void SetVT(void);
 void ClearVT(void);
 void SetReady(void);
 void ClearReady(void);
+void Delay100ms(unsigned long time);
 
 // 3. Subroutines Section
 // MAIN: Mandatory for a C Program to be executable
@@ -57,17 +59,18 @@ int main(void){
   EnableInterrupts();                      // enable interrupts for the grader  
   while(1)
 	{   
-      //GPIO_PORTF_DATA_R |= 0x08;        //Intially High
+              
 			SW1 = GPIO_PORTF_DATA_R & 0x10;  //read SW1 Pin
       if(SW1 == 0) 	//Switch pressed
 			{
-			  Delay1ms(25000000);
+				Delay100ms(1);
 				WaitForASLow();												
 			}
       else
       {
-				WaitForASHigh();		//Switch released
-      }															
+				 Delay100ms(1);
+				 WaitForASHigh();		//Switch released
+      }
 	}
   
 }
@@ -113,7 +116,7 @@ void WaitForASLow(void)
 
 void WaitForASHigh(void)
 {
-		Delay1ms(25000000);
+	  Delay100ms(1);
 		SetVT();
 	  ClearVT();
 }
@@ -124,8 +127,7 @@ void WaitForASHigh(void)
 void SetVT(void)
 {
 	GPIO_PORTF_DATA_R |= 0x08;
-	Delay1ms(25000000);
-	//ClearVT();
+	Delay100ms(1);
 }
 
 // Subroutine clears VT low
@@ -144,7 +146,8 @@ void ClearVT(void)
 // Notes:   friendly means it does not affect other bits in the port
 void SetReady(void)
 {
-	Delay1ms(25000000);
+	//Delay1ms(25000000);
+	Delay100ms(1);
   GPIO_PORTF_DATA_R |= 0x08;
 	
 }
@@ -156,7 +159,8 @@ void SetReady(void)
 // Notes:   friendly means it does not affect other bits in the port
 void ClearReady(void)
 {
-	Delay1ms(1000000);
+
+	Delay100ms(1);
 	GPIO_PORTF_DATA_R &= ~0x08;
 	GPIO_PORTF_DATA_R &= ~0x02;
 }
@@ -174,7 +178,7 @@ void Delay100ms(unsigned long time)
 {
   unsigned long i;
   while(time > 0){
-    i = 1333333;  // this number means 100ms
+    i = 1333;  // this number means 100ms
     while(i > 0){
       i = i - 1;
     }
