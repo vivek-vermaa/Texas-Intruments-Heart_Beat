@@ -176,7 +176,7 @@ void Delay1ms(unsigned long time)
 {
   unsigned long i;
   while(time > 0){
-    i = 13333;  // this number means 100ms
+    i = 13333;  // this number means 1ms
     while(i > 0){
       i = i - 1;
     }
