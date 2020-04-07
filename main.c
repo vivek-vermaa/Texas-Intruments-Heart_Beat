@@ -40,7 +40,6 @@
 unsigned int SW1;
 //   Function Prototypes
 void PortF_Init(void);
-void Delay1ms(unsigned long msec);
 void EnableInterrupts(void);  // Enable interrupts
 void WaitForASLow(void);
 void WaitForASHigh(void);
@@ -48,7 +47,7 @@ void SetVT(void);
 void ClearVT(void);
 void SetReady(void);
 void ClearReady(void);
-void Delay100ms(unsigned long time);
+void Delay1ms(unsigned long time);
 
 // 3. Subroutines Section
 // MAIN: Mandatory for a C Program to be executable
@@ -69,13 +68,13 @@ int main(void){
 			SW1= GPIO_PORTF_DATA_R & 0x10;
 			if (SW1 ==16)
 			{	
-			Delay100ms(250);
+			Delay1ms(250);
 			SetVT();
-			Delay100ms(250);
+			Delay1ms(250);
 			ClearVT();
-			Delay100ms(250);
+			Delay1ms(250);
 			SetReady();
-		  Delay100ms(250);
+		    Delay1ms(250);
 			}
 		}
 		else/*Switch not pressed*/
@@ -171,20 +170,9 @@ void ClearReady(void)
 // Inputs:  Number of milliseconds to delay
 // Outputs: None
 // Notes:   assumes 80 MHz clock
-void Delay1ms(unsigned long msec)
-{
-unsigned int i,j;
-	
-	for(i=0;i<msec;i++)
-	{
-		for(j=0;j<30810; j++)
-		{}
-		
-	}
 
-}
 
-void Delay100ms(unsigned long time)
+void Delay1ms(unsigned long time)
 {
   unsigned long i;
   while(time > 0){
