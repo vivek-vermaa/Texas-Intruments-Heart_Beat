@@ -1,24 +1,13 @@
 // 0.Documentation Section 
-// Lab7_HeartBlock, main.c
+// Heart Beat on LaunchPad
 
 // Runs on LM4F120 or TM4C123 LaunchPad
 // Input from PF4(SW1) is AS (atrial sensor), 
 // Output to PF3, Green LED, is Ready,
 // Output to PF1, Red LED, is VT (ventricular trigger) 
 // Make PF4 input, PF3,PF1 output
-// Initialize Ready to high and VT to low
-// Repeat this sequence of operation over and over
-// 1) Wait for AS to fall (touch SW1 switch)
-// 2) Clear Ready low
-// 3) Wait 10ms (debounces the switch)
-// 4) Wait for AS to rise (release SW1)
-// 5) Wait 250ms (simulates the time between atrial and ventricular contraction)
-// 6) set VT high, which will pulse the ventricles 
-// 7) Wait 250ms
-// 8) clear VT low 
-// 9) set Ready high
 
-// Date: January 15, 2016
+// Date: April 6th, 2020
 
 // 1. Pre-processor Directives Section
 #include "TExaS.h"
