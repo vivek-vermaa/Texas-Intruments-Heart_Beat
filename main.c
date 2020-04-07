@@ -1,4 +1,4 @@
-// 0.Documentation Section 
+//  <Heartbeat>  Copyright (C) <2020>  <Vivek Verma>
 // Heart Beat on LaunchPad
 
 // Runs on LM4F120 or TM4C123 LaunchPad
@@ -8,6 +8,7 @@
 // Make PF4 input, PF3,PF1 output
 
 // Date: April 6th, 2020
+
 
 // 1. Pre-processor Directives Section
 #include "TExaS.h"
